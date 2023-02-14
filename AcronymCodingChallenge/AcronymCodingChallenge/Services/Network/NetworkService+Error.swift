@@ -29,25 +29,25 @@ extension NetworkService {
         var message: String {
             switch self {
             case .noInternet:
-                return "Internet appears to be offline. Try again after some times"
+                return Constant.noInternet
             case .networkRespose:
-                return "Cloud server is not responding. Try again after some times"
+                return Constant.networkRespose
             case .requestNotFound:
-                return "Request not found"
+                return Constant.requestNotFound
             case .requestValidation:
-                return "Internal request failed, check the request once again."
+                return Constant.requestValidation
             case .internalServer:
-                return "Internal server error." // Check with your API team.
+                return Constant.internalServer
             case .unexpected(let code):
-                return "unexpected error occured, Error Code - \(code)"
+                return "\(Constant.unexpected) - \(code)"
             case .wrapperFailed:
-                return "Optional unwrapping failed. Check the response model"
+                return Constant.wrapperFailed
             case .tryCatch(let error):
-                return "Error Occurred in Try-Catch block - \(error.localizedDescription)"
+                return "\(Constant.tryCatch) - \(error.localizedDescription)"
             case .emptyData:
-                return "Not found any data."
+                return Constant.emptyData
             case .none:
-                return "No error"
+                return Constant.none
             }
         }
     }

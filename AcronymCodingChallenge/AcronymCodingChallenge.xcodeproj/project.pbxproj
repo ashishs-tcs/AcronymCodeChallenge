@@ -18,7 +18,6 @@
 		4E5F82B9299A8FFE004EEBB9 /* RequestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E5F8299299A8FFC004EEBB9 /* RequestModel.swift */; };
 		4E5F82BA299A8FFE004EEBB9 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E5F829D299A8FFC004EEBB9 /* HomeViewModel.swift */; };
 		4E5F82BB299A8FFE004EEBB9 /* AcromineModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E5F829F299A8FFC004EEBB9 /* AcromineModel.swift */; };
-		4E5F82BC299A8FFE004EEBB9 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E5F82A1299A8FFC004EEBB9 /* DetailViewController.swift */; };
 		4E5F82BD299A8FFE004EEBB9 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E5F82A2299A8FFC004EEBB9 /* HomeViewController.swift */; };
 		4E5F82BE299A8FFE004EEBB9 /* AcronymsTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4E5F82A4299A8FFC004EEBB9 /* AcronymsTableCell.xib */; };
 		4E5F82BF299A8FFE004EEBB9 /* AcronymsTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E5F82A5299A8FFC004EEBB9 /* AcronymsTableCell.swift */; };
@@ -30,6 +29,8 @@
 		4E5F82CC299A903E004EEBB9 /* MockNetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E5F82CA299A903D004EEBB9 /* MockNetworkService.swift */; };
 		4E5F82CE299A9419004EEBB9 /* HomeViewModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E5F82CD299A9419004EEBB9 /* HomeViewModelTest.swift */; };
 		4ECC96D0299B59EA00DAA275 /* Debouncer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECC96CF299B59EA00DAA275 /* Debouncer.swift */; };
+		4ECC96D3299B775000DAA275 /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECC96D2299B775000DAA275 /* Constant.swift */; };
+		4ECC96D6299B8A7100DAA275 /* NetworkServiceTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECC96D5299B8A7100DAA275 /* NetworkServiceTest.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -65,7 +66,6 @@
 		4E5F8299299A8FFC004EEBB9 /* RequestModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestModel.swift; sourceTree = "<group>"; };
 		4E5F829D299A8FFC004EEBB9 /* HomeViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		4E5F829F299A8FFC004EEBB9 /* AcromineModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AcromineModel.swift; sourceTree = "<group>"; };
-		4E5F82A1299A8FFC004EEBB9 /* DetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		4E5F82A2299A8FFC004EEBB9 /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		4E5F82A4299A8FFC004EEBB9 /* AcronymsTableCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AcronymsTableCell.xib; sourceTree = "<group>"; };
 		4E5F82A5299A8FFC004EEBB9 /* AcronymsTableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AcronymsTableCell.swift; sourceTree = "<group>"; };
@@ -77,6 +77,8 @@
 		4E5F82CA299A903D004EEBB9 /* MockNetworkService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockNetworkService.swift; sourceTree = "<group>"; };
 		4E5F82CD299A9419004EEBB9 /* HomeViewModelTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModelTest.swift; sourceTree = "<group>"; };
 		4ECC96CF299B59EA00DAA275 /* Debouncer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Debouncer.swift; sourceTree = "<group>"; };
+		4ECC96D2299B775000DAA275 /* Constant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
+		4ECC96D5299B8A7100DAA275 /* NetworkServiceTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkServiceTest.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -180,6 +182,7 @@
 		4E5F829A299A8FFC004EEBB9 /* Module */ = {
 			isa = PBXGroup;
 			children = (
+				4ECC96D1299B774200DAA275 /* Utility */,
 				4E5F829B299A8FFC004EEBB9 /* Home */,
 			);
 			path = Module;
@@ -215,7 +218,6 @@
 		4E5F82A0299A8FFC004EEBB9 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				4E5F82A1299A8FFC004EEBB9 /* DetailViewController.swift */,
 				4E5F82A2299A8FFC004EEBB9 /* HomeViewController.swift */,
 			);
 			path = View;
@@ -267,6 +269,7 @@
 		4E5F82C6299A903D004EEBB9 /* Module */ = {
 			isa = PBXGroup;
 			children = (
+				4ECC96D4299B8A5A00DAA275 /* NetworkService */,
 				4E5F82C7299A903D004EEBB9 /* Home */,
 				4E5F82C9299A903D004EEBB9 /* MockNetwork */,
 			);
@@ -295,6 +298,22 @@
 				4ECC96CF299B59EA00DAA275 /* Debouncer.swift */,
 			);
 			path = Debouncer;
+			sourceTree = "<group>";
+		};
+		4ECC96D1299B774200DAA275 /* Utility */ = {
+			isa = PBXGroup;
+			children = (
+				4ECC96D2299B775000DAA275 /* Constant.swift */,
+			);
+			path = Utility;
+			sourceTree = "<group>";
+		};
+		4ECC96D4299B8A5A00DAA275 /* NetworkService */ = {
+			isa = PBXGroup;
+			children = (
+				4ECC96D5299B8A7100DAA275 /* NetworkServiceTest.swift */,
+			);
+			path = NetworkService;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -432,6 +451,7 @@
 				4E5F82B7299A8FFE004EEBB9 /* NetworkService.swift in Sources */,
 				4E5F82C1299A8FFE004EEBB9 /* SceneDelegate.swift in Sources */,
 				4E5F82B8299A8FFE004EEBB9 /* NetworkService+Validation.swift in Sources */,
+				4ECC96D3299B775000DAA275 /* Constant.swift in Sources */,
 				4E5F82B6299A8FFE004EEBB9 /* NetworkServiceProtocol.swift in Sources */,
 				4E5F82BA299A8FFE004EEBB9 /* HomeViewModel.swift in Sources */,
 				4E5F82B3299A8FFE004EEBB9 /* Encodable+Utility.swift in Sources */,
@@ -441,7 +461,6 @@
 				4E5F82BB299A8FFE004EEBB9 /* AcromineModel.swift in Sources */,
 				4E5F82C0299A8FFE004EEBB9 /* AppDelegate.swift in Sources */,
 				4E5F82BD299A8FFE004EEBB9 /* HomeViewController.swift in Sources */,
-				4E5F82BC299A8FFE004EEBB9 /* DetailViewController.swift in Sources */,
 				4E5F82B5299A8FFE004EEBB9 /* URLEndPoint.swift in Sources */,
 				4E5F82B4299A8FFE004EEBB9 /* NetworkService+Error.swift in Sources */,
 			);
@@ -451,6 +470,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4ECC96D6299B8A7100DAA275 /* NetworkServiceTest.swift in Sources */,
 				4E5F82CE299A9419004EEBB9 /* HomeViewModelTest.swift in Sources */,
 				4E5F82CC299A903E004EEBB9 /* MockNetworkService.swift in Sources */,
 			);

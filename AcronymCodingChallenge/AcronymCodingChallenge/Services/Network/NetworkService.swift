@@ -37,7 +37,7 @@ class NetworkService: NetworkServiceProtocol {
         else {
             return .failure(ResponseError.wrapperFailed)
         }
-        return await callCloudServer(request)
+        return await callAPIServer(request)
     }
 }
 
@@ -67,7 +67,6 @@ extension NetworkService {
                 if let params = params.asDictionary,
                    let queryComponent = prepareQueries(url, params: params) {
                     request.url = queryComponent.url
-                    debugPrint("QueryParam ===> \(queryComponent.url?.absoluteString ?? "No Query formed")")
                 }
             }
         }
@@ -86,8 +85,8 @@ extension NetworkService {
         if var urlComponents = URLComponents(url: url, resolvingAgainstBaseURL: false),
            !params.isEmpty {
             urlComponents.queryItems = [URLQueryItem]()
-            for (k, v) in params {
-                let queryItem = URLQueryItem(name: k, value: "\(v)".addingPercentEncoding(withAllowedCharacters: .urlHostAllowed))
+            for (key, value) in params {
+                let queryItem = URLQueryItem(name: key, value: "\(value)".addingPercentEncoding(withAllowedCharacters: .urlHostAllowed))
                 urlComponents.queryItems?.append(queryItem)
             }
             return urlComponents
@@ -98,7 +97,7 @@ extension NetworkService {
     /// Service request and response router gateway
     /// - Parameter urlRequest: `URLRequest` represents the connectoin
     /// - Returns: `Result` that has success response and failure has error results within it.
-    func callCloudServer<T: Decodable>(_ urlRequest: URLRequest) async -> Result<[T]?, ResponseError> {
+    func callAPIServer<T: Decodable>(_ urlRequest: URLRequest) async -> Result<[T]?, ResponseError> {
         guard
             let urlSession
         else {

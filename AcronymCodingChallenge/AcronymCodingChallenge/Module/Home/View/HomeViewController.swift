@@ -12,9 +12,12 @@ class HomeViewController: UIViewController {
     // MARK: - IBOutlets
     @IBOutlet weak var acronymTextField: UITextField!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    @IBOutlet weak var emptyDataLabel: UILabel!
+    @IBOutlet weak var tableView: UITableView!
     
     // MARK: - Variables
     
+    /// Initialize view model
     lazy var viewModel: HomeViewModel = {
         let viewModel = HomeViewModel()
         return viewModel
@@ -41,8 +44,18 @@ class HomeViewController: UIViewController {
     }
     
     // MARK: - Custom methods
+    /// Setup components when view did load
     func setUpComponents() {
         activityIndicator.isHidden = true
+        emptyDataLabel.isHidden = true
+        
+        /// Setup tableview delegate and data source
+        tableView.delegate = self
+        tableView.dataSource = self
+        
+        /// Register custom table view cell to show data
+        tableView.register(UINib(nibName: String(describing: AcronymsTableCell.self), bundle: nil), forCellReuseIdentifier: String(describing: AcronymsTableCell.self))
+        tableView.isHidden = true
         
         /// Initialize the debouncer with call back method and 1 second delay
         debouncer = Debouncer.init(delay: 1, callback: triggerDebouncerCallback)
@@ -51,12 +64,20 @@ class HomeViewController: UIViewController {
     /// Trigger API call after given time once user stops writting
     private func triggerDebouncerCallback() {
         if !textFieldValue.isEmpty {
-            print("api call with sf - \(textFieldValue)")
-            
+            /// When initiate API call disable the text field
             acronymTextField.isEnabled = false
+            
+            /// When initiate API call show activity indicator
             activityIndicator.isHidden = false
             activityIndicator.startAnimating()
             
+            /// Hide empty data message label
+            emptyDataLabel.isHidden = true
+            
+            /// Hide table view while calling an API
+            tableView.isHidden = true
+            
+            /// API Call method
             getAcromineData(sf: textFieldValue)
         }
     }
@@ -68,37 +89,37 @@ class HomeViewController: UIViewController {
     
     /// Observed method to observe the result after API call with the help of view model completion
     func observedAcromynData() {
-        viewModel.completion = { [weak self] (acModel, error) in
-            if let acModel, !acModel.isEmpty {
-                print("Success")
+        viewModel.completion = { [weak self] (acromineModel, error) in
+            if let acromineModel, !acromineModel.isEmpty {
+                /// API Success
+                /// Reload the tableview to load the data
                 DispatchQueue.main.async {
                     self?.updateUIAfterAPICall()
-                    if let detailVC = self?.storyboard?.instantiateViewController(withIdentifier: String(describing: DetailViewController.self)) as? DetailViewController {
-                        detailVC.acromineModel = acModel
-                        self?.present(detailVC, animated: true)
-                    }
+                    self?.tableView.isHidden = false
+                    self?.tableView.reloadData()
                 }
             } else {
-                print("Failure")
+                /// API Failure
+                /// If no data found after API call.
                 DispatchQueue.main.async {
                     self?.updateUIAfterAPICall()
-                    self?.showAlert(title: "Error!", message: error.message)
+                    self?.tableView.isHidden = true
+                    
+                    self?.emptyDataLabel.isHidden = false
+                    self?.emptyDataLabel.text = error.message
                 }
             }
         }
     }
     
+    /// Update the UI components after the API response
     func updateUIAfterAPICall() {
+        /// Enable text filed for update
         self.acronymTextField.isEnabled = true
+        
+        /// Hide activity indicator
         self.activityIndicator.stopAnimating()
         self.activityIndicator.hidesWhenStopped = true
-    }
-    
-    /// Show alert
-    func showAlert(title: String, message: String) {
-        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .default))
-        self.present(alert, animated: true)
     }
     
     // MARK: - IBOutlet actions
@@ -107,3 +128,24 @@ class HomeViewController: UIViewController {
     }
 }
 
+// MARK: - TableView data source and delegate methods
+
+extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        /// Get the acromine  data count from view model acromine model
+        return viewModel.acromineModel.first?.lfs?.count ?? 0
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: AcronymsTableCell.self), for: indexPath) as? AcronymsTableCell else {
+            return UITableViewCell()
+        }
+        
+        /// Render data on tableview cell
+        if let data = viewModel.acromineModel.first?.lfs?[indexPath.row] {
+            cell.setUpDataOnCell(data: data)
+        }
+        
+        return cell
+    }
+}

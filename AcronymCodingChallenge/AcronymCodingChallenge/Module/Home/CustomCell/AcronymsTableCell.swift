@@ -28,10 +28,11 @@ class AcronymsTableCell: UITableViewCell {
     }
     
     // MARK: - Custom method
+    /// Update the table cell with data
     func setUpDataOnCell(data: LongFormModel) {
-        sfLabel.text = "Long Form - \(data.lf ?? "")"
-        freqLabel.text = "Frequency - \(data.freq ?? 0)"
-        sinceLabel.text = "Since - \(data.since ?? 0)"
-        varsCountLabel.text = "Variation objects - \(data.vars?.count ?? 0)"
+        sfLabel.text = "\(Constant.longForm) - \(data.lf ?? "")"
+        freqLabel.text = "\(Constant.frequency) - \(data.freq ?? 0)"
+        sinceLabel.text = "\(Constant.since) - \(data.since ?? 0)"
+        varsCountLabel.text = "\(Constant.variationObjects) - \(data.vars?.count ?? 0)"
     }
 }

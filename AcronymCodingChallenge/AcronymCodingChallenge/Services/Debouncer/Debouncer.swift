@@ -10,22 +10,27 @@ import Foundation
 /// Timer class
 /// It will be used to trigger the task after given time frame
 /// Automatic initiate the task with the help of timer
-public class Debouncer: NSObject {
-    public var callback: (() -> Void)
-    public var delay: Double
-    public weak var timer: Timer?
+class Debouncer: NSObject {
+    var callback: (() -> Void)
+    var delay: Double
+    weak var timer: Timer?
 
-    public init(delay: Double, callback: @escaping (() -> Void)) {
+    /// Initializer
+    init(delay: Double,
+        callback: @escaping (() -> Void)
+    ) {
         self.delay = delay
         self.callback = callback
     }
 
-    public func call() {
+    /// Initiate the timer with provided delay
+    func call() {
         timer?.invalidate()
         let nextTimer = Timer.scheduledTimer(timeInterval: delay, target: self, selector: #selector(Debouncer.fireNow), userInfo: nil, repeats: false)
         timer = nextTimer
     }
 
+    /// It will handle the callback
     @objc func fireNow() {
         self.callback()
     }

@@ -31,6 +31,7 @@ struct AcromineModel: Decodable {
         self.lfs = lfs
     }
     
+    /// API unique key name
     enum CodingKeys: String, CodingKey {
         case sf = "sf"
         case lfs = "lfs"
@@ -72,6 +73,7 @@ struct LongFormModel: Decodable {
         self.vars = vars
     }
     
+    /// API unique key name
     enum CodingKeys: String, CodingKey {
         case lf = "lf"
         case freq = "freq"
@@ -109,6 +111,7 @@ struct VarsModel: Decodable {
         self.since = since
     }
     
+    /// API unique key name
     enum CodingKeys: String, CodingKey {
         case lf = "lf"
         case freq = "freq"

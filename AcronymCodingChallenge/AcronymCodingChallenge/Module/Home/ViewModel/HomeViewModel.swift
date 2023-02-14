@@ -9,7 +9,7 @@ import Foundation
 
 /// HomeViewModelProtocol
 /// Contains methods which will be used to show data on UI
-protocol HomeViewModelProtocol: ObservableObject {
+protocol HomeViewModelProtocol {
     var networkService: NetworkServiceProtocol { get }
     var acromineModel: [AcromineModel] { get set }
     
@@ -21,7 +21,7 @@ protocol HomeViewModelProtocol: ObservableObject {
 final class HomeViewModel: HomeViewModelProtocol {
     
     // MARK: - Variables
-    @Published var acromineModel: [AcromineModel] = []
+    var acromineModel: [AcromineModel] = []
     var networkService: NetworkServiceProtocol
     var completion: (([AcromineModel]?, ServerError) -> ())?
     
@@ -54,7 +54,6 @@ final class HomeViewModel: HomeViewModelProtocol {
                         }
                     }
                 case .failure(let error):
-                    print(error)
                     completion?(nil, error)
                 }
             }

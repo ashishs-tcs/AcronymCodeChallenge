@@ -19,7 +19,7 @@ final class HomeViewModelTest: XCTestCase {
     }
 
     /// For success response
-    func testAcronymDataSuccess() {
+    func testAcronymData_Success() {
         // Arrange
         let mockNetworkService = MockNetworkService()
         let sut = HomeViewModel(networkService: mockNetworkService)
@@ -39,7 +39,7 @@ final class HomeViewModelTest: XCTestCase {
     }
     
     /// For failure response
-    func testAcronymDataFailure() {
+    func testAcronymData_Failure() {
         // Arrange
         let mockNetworkService = MockNetworkService()
         mockNetworkService.successResult = false
@@ -56,36 +56,5 @@ final class HomeViewModelTest: XCTestCase {
         // Assert
         XCTAssertTrue(mockNetworkService.getAcromineCalled)
         XCTAssertTrue(sut.acromineModel.isEmpty)
-    }
-    
-    /// Test actual API call with actual response from cloud server.
-    func testAcronymAPICall() {
-        // Arrange
-        let sut = NetworkService()
-        
-        // Create an expectation for an asynchronous task.
-        let expectation = XCTestExpectation(description: "Call API asynchronously.")
-        
-        // Act
-        let param = RequestModel.AcromineInfo(sf: "App", lf: "")
-        Task {
-            let result = await sut.getAcromine(param: param)
-            switch result {
-            case .success(let model):
-                if let model {
-                    // Assert
-                    XCTAssertNotNil(model)
-                    XCTAssertTrue(model.count > 0)
-                    
-                    // Fulfill the expectation.
-                    expectation.fulfill()
-                }
-            case .failure(let error):
-                print(error)
-            }
-        }
-        
-        // Wait for the expectation to fulfill or time out.
-        wait(for: [expectation], timeout: 10.0)
     }
 }

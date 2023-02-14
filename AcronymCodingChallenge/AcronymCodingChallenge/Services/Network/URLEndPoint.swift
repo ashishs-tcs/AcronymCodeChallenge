@@ -14,12 +14,6 @@ enum Environment: String {
     /// Development Server.
     case dev = "http://www.nactem.ac.uk/"
     
-    /// QA Server.
-    case qa = "https://1.2.3.4/"
-    
-    // Stage Server.
-    case stage = "https://5.6.7.8/"
-    
     /// The base url of the server.
     /// - Parameter env: `Environment` types of server.
     /// - Returns: `String` represents the chosed environment.
@@ -28,16 +22,10 @@ enum Environment: String {
     }
 }
 
-
+/// URL End Point
+/// It will be used to handle API paths
 struct URLEndPoint {
     
-    /// Path for cloud environment.
-    private static let path = "software/"
-    
-    /// Currently via code only we can change this server environment.
-    /// Note: - We have a backlog, that to setup a schema for this.
-    /// Based on schema, the server path will change.
-    private static let BASE = Environment.base(.dev) + URLEndPoint.path
-    
-    static let ACROMINE = URLEndPoint.BASE + "acromine/dictionary.py"/// + path or API if any
+    /// Acromine API path
+    static let ACROMINE = Environment.base(.dev) + "software/acromine/dictionary.py"
 }
