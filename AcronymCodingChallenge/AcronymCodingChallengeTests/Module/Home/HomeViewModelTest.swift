@@ -50,7 +50,7 @@ final class HomeViewModelTest: XCTestCase {
         mockNetworkService.expectations = expectation
         
         // Act
-        sut.getAcromine(sf: "APP")
+        sut.getAcromine(sf: "A")
         wait(for: [expectation], timeout: 10.0)
         
         // Assert

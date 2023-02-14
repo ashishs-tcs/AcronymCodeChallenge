@@ -8,6 +8,10 @@
 import Foundation
 
 enum Constant {
+    /// Server URL
+    static let serverURL = "http://www.nactem.ac.uk/"
+    static let acromineAPI = "software/acromine/dictionary.py"
+    
     /// API errors message
     static let noInternet = "Internet appears to be offline. Try again after some times"
     static let networkRespose = "Cloud server is not responding. Try again after some times"
