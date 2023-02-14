@@ -11,7 +11,6 @@ class HomeViewController: UIViewController {
     
     // MARK: - IBOutlets
     @IBOutlet weak var acronymTextField: UITextField!
-    @IBOutlet weak var searchButton: UIButton!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     // MARK: - Variables
@@ -20,6 +19,14 @@ class HomeViewController: UIViewController {
         let viewModel = HomeViewModel()
         return viewModel
     }()
+    
+    private var debouncer: Debouncer!
+    
+    private var textFieldValue = "" {
+        didSet {
+            debouncer.call()
+        }
+    }
     
     // MARK: - Class methods
     override func viewDidLoad() {
@@ -30,19 +37,33 @@ class HomeViewController: UIViewController {
         observedAcromynData()
         
         /// SetUp UI components
-        setUpUIComponents()
+        setUpComponents()
     }
     
     // MARK: - Custom methods
-    func setUpUIComponents() {
+    func setUpComponents() {
         activityIndicator.isHidden = true
+        
+        /// Initialize the debouncer with call back method and 1 second delay
+        debouncer = Debouncer.init(delay: 1, callback: triggerDebouncerCallback)
     }
     
-    /// Update UI after getting the response from server
-    func updateUIAfterAPIResponse() {
-        self.searchButton.isEnabled = true
-        self.activityIndicator.stopAnimating()
-        self.activityIndicator.hidesWhenStopped = true
+    /// Trigger API call after given time once user stops writting
+    private func triggerDebouncerCallback() {
+        if !textFieldValue.isEmpty {
+            print("api call with sf - \(textFieldValue)")
+            
+            acronymTextField.isEnabled = false
+            activityIndicator.isHidden = false
+            activityIndicator.startAnimating()
+            
+            getAcromineData(sf: textFieldValue)
+        }
+    }
+    
+    /// Initiate get acromyn API call from view model
+    func getAcromineData(sf: String) {
+        viewModel.getAcromine(sf: sf, lf: "")
     }
     
     /// Observed method to observe the result after API call with the help of view model completion
@@ -51,8 +72,7 @@ class HomeViewController: UIViewController {
             if let acModel, !acModel.isEmpty {
                 print("Success")
                 DispatchQueue.main.async {
-                    self?.updateUIAfterAPIResponse()
-                    
+                    self?.updateUIAfterAPICall()
                     if let detailVC = self?.storyboard?.instantiateViewController(withIdentifier: String(describing: DetailViewController.self)) as? DetailViewController {
                         detailVC.acromineModel = acModel
                         self?.present(detailVC, animated: true)
@@ -61,16 +81,17 @@ class HomeViewController: UIViewController {
             } else {
                 print("Failure")
                 DispatchQueue.main.async {
-                    self?.updateUIAfterAPIResponse()
+                    self?.updateUIAfterAPICall()
                     self?.showAlert(title: "Error!", message: error.message)
                 }
             }
         }
     }
     
-    /// Initiate get acromyn API call from view model
-    func getAcromineData(sf: String) {
-        viewModel.getAcromine(sf: sf, lf: "")
+    func updateUIAfterAPICall() {
+        self.acronymTextField.isEnabled = true
+        self.activityIndicator.stopAnimating()
+        self.activityIndicator.hidesWhenStopped = true
     }
     
     /// Show alert
@@ -81,18 +102,8 @@ class HomeViewController: UIViewController {
     }
     
     // MARK: - IBOutlet actions
-    @IBAction func searchButtonTapped(_ sender: UIButton) {
-        if let text = acronymTextField.text {
-            if !text.isEmpty {
-                activityIndicator.isHidden = false
-                activityIndicator.startAnimating()
-                searchButton.isEnabled = false
-                
-                getAcromineData(sf: text)
-            } else {
-                showAlert(title: "Alert", message: "Please enter the text first.")
-            }
-        }
+    @IBAction func textChanged(_ sender: Any) {
+        textFieldValue = (sender as? UITextField)?.text ?? ""
     }
 }
 

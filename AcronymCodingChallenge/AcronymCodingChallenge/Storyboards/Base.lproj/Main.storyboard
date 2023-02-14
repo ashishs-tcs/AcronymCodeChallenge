@@ -12,7 +12,7 @@
         <!--Home-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController storyboardIdentifier="HomeViewController" id="BYZ-38-t0r" customClass="HomeViewController" customModule="AlbertsonsCodingTest" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="HomeViewController" id="BYZ-38-t0r" customClass="HomeViewController" customModule="AcronymCodingChallenge" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -22,6 +22,9 @@
                                 <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <action selector="textChanged:" destination="BYZ-38-t0r" eventType="editingChanged" id="N7O-BM-sow"/>
+                                </connections>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please enter abbreviation for which definitions are to be retrieved" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Swx-L9-VCa">
                                 <rect key="frame" x="20" y="69" width="353" height="48"/>
@@ -29,17 +32,9 @@
                                 <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qpi-4O-Msu">
-                                <rect key="frame" x="157.66666666666666" y="231" width="78" height="35"/>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="filled" title="Search"/>
-                                <connections>
-                                    <action selector="searchButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="cmz-YP-6vb"/>
-                                </connections>
-                            </button>
-                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="9PY-zC-Xfw">
-                                <rect key="frame" x="186.66666666666666" y="416" width="20" height="20"/>
-                                <color key="color" systemColor="tintColor"/>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="Ahi-kN-hFl">
+                                <rect key="frame" x="348" y="144" width="20" height="20"/>
+                                <color key="color" red="0.090196078430000007" green="0.27166107817963286" blue="0.51234275977928323" alpha="1" colorSpace="calibratedRGB"/>
                             </activityIndicatorView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
@@ -47,14 +42,12 @@
                         <constraints>
                             <constraint firstItem="ZT8-iD-41u" firstAttribute="top" secondItem="Swx-L9-VCa" secondAttribute="bottom" constant="20" id="5ch-x0-pxj"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Swx-L9-VCa" secondAttribute="trailing" constant="20" id="5vO-ej-mfn"/>
-                            <constraint firstItem="qpi-4O-Msu" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="99F-qA-urV"/>
-                            <constraint firstItem="qpi-4O-Msu" firstAttribute="top" secondItem="ZT8-iD-41u" secondAttribute="bottom" constant="60" id="Cbl-na-QjN"/>
                             <constraint firstItem="Swx-L9-VCa" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="Pn3-ft-BpG"/>
+                            <constraint firstItem="Ahi-kN-hFl" firstAttribute="trailing" secondItem="ZT8-iD-41u" secondAttribute="trailing" constant="-5" id="TX6-kM-0qq"/>
                             <constraint firstItem="ZT8-iD-41u" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="U4L-SK-h7B"/>
+                            <constraint firstItem="Ahi-kN-hFl" firstAttribute="centerY" secondItem="ZT8-iD-41u" secondAttribute="centerY" id="k6p-fP-Cmd"/>
                             <constraint firstItem="Swx-L9-VCa" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="10" id="o0b-4g-vaF"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="ZT8-iD-41u" secondAttribute="trailing" constant="20" id="o5g-bp-p7u"/>
-                            <constraint firstItem="9PY-zC-Xfw" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="ps2-tb-Rdl"/>
-                            <constraint firstItem="9PY-zC-Xfw" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="sIN-6W-3EQ"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Home" id="i2j-Oa-tcc">
@@ -62,8 +55,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="acronymTextField" destination="ZT8-iD-41u" id="EWs-u1-Jok"/>
-                        <outlet property="activityIndicator" destination="9PY-zC-Xfw" id="dKJ-Yv-5ZW"/>
-                        <outlet property="searchButton" destination="qpi-4O-Msu" id="K1n-PU-V3i"/>
+                        <outlet property="activityIndicator" destination="Ahi-kN-hFl" id="DLT-aR-keS"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -73,7 +65,7 @@
         <!--Detail View Controller-->
         <scene sceneID="RDw-rV-Y6v">
             <objects>
-                <viewController storyboardIdentifier="DetailViewController" id="kPc-AZ-GF9" customClass="DetailViewController" customModule="AlbertsonsCodingTest" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="DetailViewController" id="kPc-AZ-GF9" customClass="DetailViewController" customModule="AcronymCodingChallenge" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="UlW-TU-53W">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -114,9 +106,6 @@
     <resources>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
-        <systemColor name="tintColor">
-            <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
