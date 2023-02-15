@@ -21,7 +21,7 @@ final class NetworkServiceTest: XCTestCase {
     /// Test actual API call with actual response from cloud server.
     func testAcronymAPICall_Success() {
         // Arrange
-        let sut = NetworkService()
+        let networkService = NetworkService()
         
         // Create an expectation for an asynchronous task.
         let expectation = XCTestExpectation(description: "Call API asynchronously.")
@@ -29,7 +29,7 @@ final class NetworkServiceTest: XCTestCase {
         // Act
         let param = RequestModel.AcromineInfo(sf: "App", lf: "")
         Task {
-            let result = await sut.getAcromine(param: param)
+            let result = await networkService.getAcromine(param: param)
             switch result {
             case .success(let model):
                 if let model {
@@ -51,7 +51,7 @@ final class NetworkServiceTest: XCTestCase {
 
     func testAcronymAPICall_Failure() {
         // Arrange
-        let sut = NetworkService()
+        let networkService = NetworkService()
         
         // Create an expectation for an asynchronous task.
         let expectation = XCTestExpectation(description: "Call API asynchronously.")
@@ -59,7 +59,7 @@ final class NetworkServiceTest: XCTestCase {
         // Act
         let param = RequestModel.AcromineInfo(sf: "A", lf: "")
         Task {
-            let result = await sut.getAcromine(param: param)
+            let result = await networkService.getAcromine(param: param)
             switch result {
             case .success(let model):
                 if let model {

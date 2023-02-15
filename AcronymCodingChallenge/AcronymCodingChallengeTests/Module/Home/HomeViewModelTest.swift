@@ -22,20 +22,20 @@ final class HomeViewModelTest: XCTestCase {
     func testAcronymData_Success() {
         // Arrange
         let mockNetworkService = MockNetworkService()
-        let sut = HomeViewModel(networkService: mockNetworkService)
+        let homeViewModel = HomeViewModel(networkService: mockNetworkService)
         
         // Create an expectation for an asynchronous task.
         let expectation = XCTestExpectation(description: "ViewModel test success")
         mockNetworkService.expectations = expectation
         
         // Act
-        sut.getAcromine(sf: "APP")
+        homeViewModel.getAcromine(sf: "APP")
         wait(for: [expectation], timeout: 10.0)
         
         // Assert
         XCTAssertTrue(mockNetworkService.getAcromineCalled)
-        XCTAssertNotNil(sut.acromineModel)
-        XCTAssertTrue(sut.acromineModel.count > 0)
+        XCTAssertNotNil(homeViewModel.acromineModel)
+        XCTAssertTrue(homeViewModel.acromineModel.count > 0)
     }
     
     /// For failure response
@@ -43,18 +43,18 @@ final class HomeViewModelTest: XCTestCase {
         // Arrange
         let mockNetworkService = MockNetworkService()
         mockNetworkService.successResult = false
-        let sut = HomeViewModel(networkService: mockNetworkService)
+        let homeViewModel = HomeViewModel(networkService: mockNetworkService)
         
         // Create an expectation for an asynchronous task.
         let expectation = XCTestExpectation(description: "ViewModel test failure")
         mockNetworkService.expectations = expectation
         
         // Act
-        sut.getAcromine(sf: "A")
+        homeViewModel.getAcromine(sf: "A")
         wait(for: [expectation], timeout: 10.0)
         
         // Assert
         XCTAssertTrue(mockNetworkService.getAcromineCalled)
-        XCTAssertTrue(sut.acromineModel.isEmpty)
+        XCTAssertTrue(homeViewModel.acromineModel.isEmpty)
     }
 }
